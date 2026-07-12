@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago al Recibir - Mercado Libre</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue-dark: #1e3a8a;
+            --orange: #f97316;
+            --white: #ffffff;
+            --gray-light: #f3f4f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--white);
+            background-color: var(--blue-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background-color: var(--white);
+            color: var(--blue-dark);
+            padding: 80px 20px;
+        }
+
+        .benefits h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .benefits-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .benefit-item span {
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* How it Works Section */
+        .how-it-works {
+            padding: 80px 20px;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 50px;
+        }
+
+        .steps {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .step-number {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .step p {
+            font-size: 1.1rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background-color: var(--white);
+            color: var(--blue-dark);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            background-color: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(249, 115, 22, 0.4);
+        }
+
+        .social-proof {
+            margin-top: 30px;
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        /* Email Form */
+        .email-form {
+            display: none;
+            margin-top: 30px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .email-form.active {
+            display: block;
+        }
+
+        .email-form input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--blue-dark);
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .email-form input:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+
+        .email-form button {
+            width: 100%;
+            background-color: var(--blue-dark);
+            color: var(--white);
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .email-form button:hover {
+            background-color: #1e40af;
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #10b981;
+            color: var(--white);
+            border-radius: 8px;
+            font-size: 1.1rem;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0f172a;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .benefits h2,
+            .how-it-works h2,
+            .cta h2 {
+                font-size: 1.5rem;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Compra en Mercado Libre sin exponer tu tarjeta</h1>
+            <p>Paga con transferencia o código QR en el momento de la entrega. Sin datos de tarjeta, sin clonaciones.</p>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <h2>Beneficios</h2>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <span>🔒</span>
+                    <p><strong>Seguridad:</strong> No ingresas tus datos bancarios en ninguna página.</p>
+                </div>
+                <div class="benefit-item">
+                    <span>⚡</span>
+                    <p><strong>Simplicidad:</strong> Pagas con un código QR o transferencia desde tu celular en segundos.</p>
+                </div>
+                <div class="benefit-item">
+                    <span>✅</span>
+                    <p><strong>Tranquilidad:</strong> Recibes confirmación instantánea apenas realizas el pago.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2>¿Cómo funciona?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1️⃣</div>
+                    <p>Compra como siempre en Mercado Libre.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2️⃣</div>
+                    <p>Recibe tu producto en la puerta de tu casa.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3️⃣</div>
+                    <p>Paga con transferencia o escaneando el código QR en el momento de la entrega.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Quiero ser de los primeros en probarlo</h2>
+            <p>Déjame tu correo.</p>
+            <button class="cta-button" onclick="toggleForm()">Quiero probarlo</button>
+            <p class="social-proof">Únete a los 150 compradores que ya se registraron</p>
+            
+            <div class="email-form" id="emailForm">
+                <input type="email" id="emailInput" placeholder="Ingresa tu correo electrónico" required>
+                <button onclick="submitEmail()">Enviar</button>
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                ¡Gracias! Te avisaremos cuando esté disponible
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Proyecto académico - Universidad de los Andes - Design Thinking y Lean Startup</p>
+        </div>
+    </footer>
+
+    <script>
+        // Variable para almacenar los correos
+        let emails = [];
+
+        function toggleForm() {
+            const form = document.getElementById('emailForm');
+            form.classList.toggle('active');
+        }
+
+        function submitEmail() {
+            const emailInput = document.getElementById('emailInput');
+            const email = emailInput.value.trim();
+            
+            if (email && email.includes('@')) {
+                // Guardar el correo en la variable
+                emails.push(email);
+                console.log('Correos registrados:', emails);
+                
+                // Ocultar el formulario
+                document.getElementById('emailForm').classList.remove('active');
+                
+                // Mostrar mensaje de éxito
+                document.getElementById('successMessage').classList.add('active');
+                
+                // Limpiar el input
+                emailInput.value = '';
+            } else {
+                alert('Por favor, ingresa un correo electrónico válido.');
+            }
+        }
+    </script>
+</body>
+</html>
